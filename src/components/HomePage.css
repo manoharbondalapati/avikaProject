@@ -48,13 +48,13 @@ h2 {
   margin-left: 35%;
 }
 @media (max-width: 520px) {
-  #admindiv {
+ #admindiv {
     margin-left: 0px;
     height: 65px;
-    padding-left: 80px;
+    padding-left: 120px;
   }
   #userdiv {
-    padding-left: 60px;
+    padding-left: 100px;
   }
   .divs {
     display: flex;
