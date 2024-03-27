@@ -74,7 +74,7 @@ label {
 @media (max-width: 520px) {
   .shows-password {
     position: absolute;
-    right: 47px;
+    right: 90px;
     top: 53.5%;
     transform: translateY(-50%);
     cursor: pointer;
