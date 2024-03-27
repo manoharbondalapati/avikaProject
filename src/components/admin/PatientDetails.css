@@ -1,0 +1,110 @@
+#patientDetailsPage {
+  height: 100vh;
+}
+
+.patientcontainers {
+  margin: 0 auto;
+}
+
+#headerbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px;
+  background-color: black;
+}
+#headerbar img {
+  height: 30px;
+  width: 60px;
+}
+
+#backbutton,
+#patientlogout {
+  border-radius: 100px;
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  background-color: white;
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+
+#patientlogout {
+  margin-left: 10px;
+  color: rgb(240, 175, 11);
+  background-color: black;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-content p {
+  margin: 0;
+  padding: 10px;
+  cursor: pointer;
+}
+.dropdown-content p:hover {
+  background-color: gray;
+}
+
+.headerbar2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+#view-file {
+  background-color: rgb(15, 44, 49);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#details {
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 10px;
+  background-color: rgb(203, 205, 205);
+  margin: 0px 20px;
+}
+
+#detailsh3 {
+  margin-top: 0;
+  color: rgb(16, 90, 147);
+}
+
+.detail-item {
+  margin-bottom: 10px;
+}
+
+.detail-item p {
+  font-size: 20px;
+  margin-left: 10px;
+  color: rgb(0, 0, 0);
+}
+
+.detail-item span {
+  margin-right: 10px;
+  color: rgb(45, 115, 227);
+}
+
+@media (max-width: 600px) {
+  #patientDetailsPage {
+    height: 100%;
+  }
+}

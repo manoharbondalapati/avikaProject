@@ -1,0 +1,91 @@
+#body {
+  height: 100vh;
+  background-image: url("../assets/background-img1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+  background-attachment: fixed;
+}
+.containers {
+  margin-left: 20px;
+}
+.containers h1,
+h2 {
+  color: white;
+  text-shadow: 3px 6px 4px black;
+}
+
+#user {
+  background-color: rgb(30, 27, 27);
+  text-align: center;
+}
+#admin {
+  background-color: rgb(201, 107, 89);
+  text-align: center;
+}
+#plus {
+  color: red;
+  font-size: 50px;
+  text-shadow: 1px 3px 3px white;
+}
+
+#userdiv {
+  box-sizing: border-box;
+  box-shadow: 2px 1px 4px 5px black;
+  padding: 5%;
+  margin-top: 7%;
+}
+#admindiv {
+  box-sizing: border-box;
+  box-shadow: 2px 1px 4px 5px black;
+  height: 140px;
+  padding: 5.5%;
+  margin-left: 20px;
+  margin-top: 7%;
+}
+.divs {
+  display: flex;
+  margin-left: 35%;
+}
+@media (max-width: 520px) {
+  #admindiv {
+    margin-left: 0px;
+    height: 65px;
+    padding-left: 80px;
+  }
+  #userdiv {
+    padding-left: 60px;
+  }
+  .divs {
+    display: flex;
+    flex-direction: column;
+    margin: 6%;
+  }
+}
+@keyframes floatUpDown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+#userdiv {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+#admindiv {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
