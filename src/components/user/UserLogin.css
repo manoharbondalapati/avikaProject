@@ -76,7 +76,7 @@ label {
   #show-password {
     position: absolute;
     right: 90px;
-    top: 60.2%;
+    top: 58%;
     transform: translateY(-50%);
     cursor: pointer;
     background-color: transparent;
