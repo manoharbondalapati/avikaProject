@@ -1,91 +1,87 @@
-#body {
-  height: 100vh;
-  background-image: url("../assets/background-img1.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  object-fit: cover;
-  background-attachment: fixed;
-}
-.containers {
-  margin-left: 20px;
-}
-.containers h1,
-h2 {
-  color: white;
-  text-shadow: 3px 6px 4px black;
-}
 
-#user {
-  background-color: rgb(30, 27, 27);
-  text-align: center;
-}
-#admin {
-  background-color: rgb(201, 107, 89);
-  text-align: center;
-}
-#plus {
-  color: red;
-  font-size: 50px;
-  text-shadow: 1px 3px 3px white;
-}
-
-#userdiv {
-  box-sizing: border-box;
-  box-shadow: 2px 1px 4px 5px black;
-  padding: 5%;
-  margin-top: 7%;
-}
-#admindiv {
-  box-sizing: border-box;
-  box-shadow: 2px 1px 4px 5px black;
-  height: 140px;
-  padding: 5.5%;
-  margin-left: 20px;
-  margin-top: 7%;
-}
-.divs {
+.header {
   display: flex;
-  margin-left: 35%;
-}
-@media (max-width: 520px) {
- #admindiv {
-    margin-left: 0px;
-    height: 65px;
-    padding-left: 120px;
-  }
-  #userdiv {
-    padding-left: 100px;
-  }
-  .divs {
-    display: flex;
-    flex-direction: column;
-    margin: 6%;
-  }
-}
-@keyframes floatUpDown {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  justify-content: space-between;
+  margin: 0px 5px 0px 5px ;
+  align-items: center;
 }
 
-#userdiv {
-  animation: floatUpDown 3s ease-in-out infinite;
+.logo {
+  width: 100px;
 }
 
-@keyframes floatUpDown {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+.admin-link {
+  text-decoration: none;
+  color: black;
 }
 
-#admindiv {
-  animation: floatUpDown 3s ease-in-out infinite;
+.poster-container {
+  position: relative;
+}
+
+.poster-img {
+  width: 100%;
+  height: 80%;
+ 
+}
+
+.poster-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.content-card {
+  width: 300px;
+}
+
+.content-img {
+  width: 100%;
+  height: auto;
+}
+
+.footer {
+  background-color: #848282;
+  color: black;
+  
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items at the top */
+  flex-wrap: wrap;
+}
+
+.footer-section > div {
+  flex-basis: calc(33.33% - 20px); /* Adjust the width of each section */
+}
+
+.about-us h3,
+.links h3,
+.office h3 {
+  margin-bottom: 10px;
+}
+
+.links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.links ul li {
+  margin-bottom: 5px;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 20px;
 }

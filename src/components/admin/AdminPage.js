@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRecords } from "../../myredux/reducers/RecordsSlice";
 import { Table, Pagination } from "react-bootstrap";
@@ -15,14 +15,14 @@ const AdminPage = () => {
   const { records } = useSelector((state) => state.records);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(10);
+  const recordsPerPage = 10;
   const [searchQuery, setSearchQuery] = useState("");
-  const [opNumberSearch, setOpNumberSearch] = useState(""); 
-  const [ipNumberSearch, setIpNumberSearch] = useState(""); 
+  const [opNumberSearch, setOpNumberSearch] = useState("");
+  const [ipNumberSearch, setIpNumberSearch] = useState("");
   const [genderFilter, setGenderFilter] = useState(null);
-  const [dropdownVisible, setDropdownVisible] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -32,31 +32,39 @@ const AdminPage = () => {
     }
   }, [dispatch, token, navigate]);
 
-  const filterRecords = records.filter(
-    (record) =>
-      record?.patient_name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      (!genderFilter ||
-        record.gender.toLowerCase() === genderFilter.toLowerCase()) &&
-      (!startDate || new Date(record.Date_of_registration) >= startDate) &&
-      (!endDate || new Date(record.Date_of_registration) <= endDate) &&
-      (!opNumberSearch || record.op_number === opNumberSearch) && 
-      (!ipNumberSearch || record.ip_number === ipNumberSearch)
-  );
+  const filteredRecords = useMemo(() => {
+    return records.filter(
+      (record) =>
+        record?.patient_name
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) &&
+        (!genderFilter ||
+          record.gender.toLowerCase() === genderFilter.toLowerCase()) &&
+        (!startDate || new Date(record.Date_of_registration) >= startDate) &&
+        (!endDate || new Date(record.Date_of_registration) <= endDate) &&
+        record?.op_number.includes(opNumberSearch) &&
+        record?.ip_number.includes(ipNumberSearch)
+    );
+  }, [
+    records,
+    searchQuery,
+    genderFilter,
+    startDate,
+    endDate,
+    opNumberSearch,
+    ipNumberSearch,
+  ]);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = filterRecords.slice(
+  const currentRecords = filteredRecords.slice(
     indexOfFirstRecord,
     indexOfLastRecord
   );
 
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
-
   const handleLogout = () => {
     dispatch(AdminLogout());
-    localStorage.clear("adminToken");
+    localStorage.removeItem("adminToken");
     navigate("/");
   };
 
@@ -67,6 +75,10 @@ const AdminPage = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
   return (
     <div id="allrecords">
       <div id="container" className="table-responsive">
@@ -74,7 +86,7 @@ const AdminPage = () => {
           <div>
             <img
               src="https://res.cloudinary.com/dpfnyv0ut/image/upload/v1709751594/avika-img_msxfud.png"
-              alt=""
+              alt="logo"
             ></img>
           </div>
           <div id="logout-icon" className="dropdown">
@@ -96,7 +108,14 @@ const AdminPage = () => {
             </div>
             <div id="lengthpart">
               <p className="length">
-                All Documents: {filterRecords.length}
+                {searchQuery ||
+                opNumberSearch ||
+                ipNumberSearch ||
+                genderFilter ||
+                startDate ||
+                endDate
+                  ? `Search Records: ${filteredRecords.length}`
+                  : `All Documents: ${filteredRecords.length}`}
               </p>
             </div>
           </div>
@@ -111,7 +130,7 @@ const AdminPage = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
-              <div  className="inputsgap">
+              <div className="inputsgap">
                 <input
                   id="opNumberSearch"
                   type="search"
@@ -169,51 +188,53 @@ const AdminPage = () => {
               </div>
             </div>
           </div>
-          {currentRecords.length === 0 && <h1 className="norecords">No records found</h1>}
-          {currentRecords.length > 0 && (
-               <Table bordered hover id="tabledata">
-               <thead id="heads">
-                 <tr>
-                   <th>S_NO</th>
-                   <th>Patient Name</th>
-                   <th>Age</th>
-                   <th>Gender</th>
-                   <th>Date of Registration</th>
-                   <th>Place</th>
-                   <th>Uploaded Date</th>
-                   <th>OP Number</th>
-                   <th>IP Number</th>
-                   <th>Actions</th>
-                 </tr>
-               </thead>
-   
-               <tbody>
-                 {currentRecords.map((record, index) => (
-                   <tr key={record.id} style={{ backgroundColor: "gray" }}>
-                     <td>{indexOfFirstRecord + index + 1}</td>
-                     <td>{record.patient_name}</td>
-                     <td>{record.age}</td>
-                     <td>{record.gender}</td>
-                     <td>{record.Date_of_registration}</td>
-                     <td>{record.place}</td>
-                     <td>{record.created_at}</td>
-                     <td>{record.op_number}</td>
-                     <td>{record.ip_number}</td>
-                     <td>
-                       <button
-                         className="btn"
-                         id="adminpagebtn"
-                         onClick={() => handlePatientDetails(record.id)}
-                       >
-                         Details
-                       </button>
-                     </td>
-                   </tr>
-                 ))}
-               </tbody>
-             </Table>
+          {currentRecords.length === 0 && (
+            <h1 className="norecords">No records found</h1>
           )}
-           <div className="pagination-container">
+          {currentRecords.length > 0 && (
+            <Table bordered hover id="tabledata">
+              <thead id="heads">
+                <tr>
+                  <th>S_NO</th>
+                  <th>Patient Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Date of Registration</th>
+                  <th>Place</th>
+                  <th>Uploaded Date</th>
+                  <th>OP Number</th>
+                  <th>IP Number</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {currentRecords.map((record, index) => (
+                  <tr key={record.id} style={{ backgroundColor: "gray" }}>
+                    <td>{indexOfFirstRecord + index + 1}</td>
+                    <td>{record.patient_name}</td>
+                    <td>{record.age}</td>
+                    <td>{record.gender}</td>
+                    <td>{record.Date_of_registration}</td>
+                    <td>{record.place}</td>
+                    <td>{record.created_at}</td>
+                    <td>{record.op_number}</td>
+                    <td>{record.ip_number}</td>
+                    <td>
+                      <button
+                        className="btn"
+                        id="adminpagebtn"
+                        onClick={() => handlePatientDetails(record.id)}
+                      >
+                        Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
+          <div className="pagination-container">
             <Pagination className="pagination">
               <Pagination.First
                 onClick={() => paginate(1)}
@@ -224,7 +245,7 @@ const AdminPage = () => {
                 disabled={currentPage === 1}
               />
               {Array.from({
-                length: Math.ceil(filterRecords.length / recordsPerPage),
+                length: Math.ceil(filteredRecords.length / recordsPerPage),
               }).map(
                 (_, i) =>
                   i >= currentPage - 3 &&
@@ -243,16 +264,16 @@ const AdminPage = () => {
                 onClick={() => paginate(currentPage + 1)}
                 disabled={
                   currentPage ===
-                  Math.ceil(filterRecords.length / recordsPerPage)
+                  Math.ceil(filteredRecords.length / recordsPerPage)
                 }
               />
               <Pagination.Last
                 onClick={() =>
-                  paginate(Math.ceil(filterRecords.length / recordsPerPage))
+                  paginate(Math.ceil(filteredRecords.length / recordsPerPage))
                 }
                 disabled={
                   currentPage ===
-                  Math.ceil(filterRecords.length / recordsPerPage)
+                  Math.ceil(filteredRecords.length / recordsPerPage)
                 }
               />
             </Pagination>
