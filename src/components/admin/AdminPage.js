@@ -17,6 +17,8 @@ const AdminPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
+  const [opNumberSearch, setOpNumberSearch] = useState(""); 
+  const [ipNumberSearch, setIpNumberSearch] = useState(""); 
   const [genderFilter, setGenderFilter] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [startDate, setStartDate] = useState(null);
@@ -36,7 +38,9 @@ const AdminPage = () => {
       (!genderFilter ||
         record.gender.toLowerCase() === genderFilter.toLowerCase()) &&
       (!startDate || new Date(record.Date_of_registration) >= startDate) &&
-      (!endDate || new Date(record.Date_of_registration) <= endDate)
+      (!endDate || new Date(record.Date_of_registration) <= endDate) &&
+      (!opNumberSearch || record.op_number === opNumberSearch) && 
+      (!ipNumberSearch || record.ip_number === ipNumberSearch)
   );
 
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -52,7 +56,7 @@ const AdminPage = () => {
 
   const handleLogout = () => {
     dispatch(AdminLogout());
-    localStorage.removeItem("adminToken");
+    localStorage.clear("adminToken");
     navigate("/");
   };
 
@@ -62,6 +66,7 @@ const AdminPage = () => {
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div id="allrecords">
       <div id="container" className="table-responsive">
@@ -90,20 +95,38 @@ const AdminPage = () => {
               <h3 id="recordsh3">All Documents</h3>
             </div>
             <div id="lengthpart">
-              <p className="ml-2 length">
+              <p className="length">
                 All Documents: {filterRecords.length}
               </p>
             </div>
           </div>
           <div className="headerbar">
             <div className="part1">
-              <div>
+              <div className="inputsgap">
                 <input
                   id="namesearch"
                   type="search"
                   placeholder="Search Patient name"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <div  className="inputsgap">
+                <input
+                  id="opNumberSearch"
+                  type="search"
+                  placeholder="Search by OP Number"
+                  value={opNumberSearch}
+                  onChange={(e) => setOpNumberSearch(e.target.value)}
+                />
+              </div>
+              <div className="inputsgap">
+                <input
+                  id="ipNumberSearch"
+                  type="search"
+                  placeholder="Search by IP Number"
+                  value={ipNumberSearch}
+                  onChange={(e) => setIpNumberSearch(e.target.value)}
                 />
               </div>
               <div>
@@ -124,7 +147,7 @@ const AdminPage = () => {
               </div>
             </div>
             <div id="datefilter">
-              <span id="datepicker">Date_of_registration </span>
+              <span id="datepicker">DateofRegistration </span>
               <div className="dates">
                 <DatePicker
                   selected={startDate}
@@ -146,48 +169,51 @@ const AdminPage = () => {
               </div>
             </div>
           </div>
-          <Table bordered hover id="tabledata">
-            <thead id="heads">
-              <tr>
-                <th>S_NO</th>
-                <th>Patient Name</th>
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Date of Registration</th>
-                <th>Place</th>
-                <th>Uploaded Date</th>
-                <th>OP Number</th>
-                <th>IP Number</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {currentRecords.map((record, index) => (
-                <tr key={record.id} style={{ backgroundColor: "gray" }}>
-                  <td>{indexOfFirstRecord + index + 1}</td>
-                  <td>{record.patient_name}</td>
-                  <td>{record.age}</td>
-                  <td>{record.gender}</td>
-                  <td>{record.Date_of_registration}</td>
-                  <td>{record.place}</td>
-                  <td>{record.created_at}</td>
-                  <td>{record.op_number}</td>
-                  <td>{record.ip_number}</td>
-                  <td>
-                    <button
-                      className="btn"
-                      id="adminpagebtn"
-                      onClick={() => handlePatientDetails(record.id)}
-                    >
-                      Details
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <div className="pagination-container">
+          {currentRecords.length === 0 && <h1 className="norecords">No records found</h1>}
+          {currentRecords.length > 0 && (
+               <Table bordered hover id="tabledata">
+               <thead id="heads">
+                 <tr>
+                   <th>S_NO</th>
+                   <th>Patient Name</th>
+                   <th>Age</th>
+                   <th>Gender</th>
+                   <th>Date of Registration</th>
+                   <th>Place</th>
+                   <th>Uploaded Date</th>
+                   <th>OP Number</th>
+                   <th>IP Number</th>
+                   <th>Actions</th>
+                 </tr>
+               </thead>
+   
+               <tbody>
+                 {currentRecords.map((record, index) => (
+                   <tr key={record.id} style={{ backgroundColor: "gray" }}>
+                     <td>{indexOfFirstRecord + index + 1}</td>
+                     <td>{record.patient_name}</td>
+                     <td>{record.age}</td>
+                     <td>{record.gender}</td>
+                     <td>{record.Date_of_registration}</td>
+                     <td>{record.place}</td>
+                     <td>{record.created_at}</td>
+                     <td>{record.op_number}</td>
+                     <td>{record.ip_number}</td>
+                     <td>
+                       <button
+                         className="btn"
+                         id="adminpagebtn"
+                         onClick={() => handlePatientDetails(record.id)}
+                       >
+                         Details
+                       </button>
+                     </td>
+                   </tr>
+                 ))}
+               </tbody>
+             </Table>
+          )}
+           <div className="pagination-container">
             <Pagination className="pagination">
               <Pagination.First
                 onClick={() => paginate(1)}
