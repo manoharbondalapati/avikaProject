@@ -11,8 +11,7 @@ const HomePage = () => {
         <img
           className="logo"
           src="https://res.cloudinary.com/dpfnyv0ut/image/upload/v1709751594/avika-img_msxfud.png"
-          alt="Avika Logo"
-        />
+          alt="Avika Logo"/>
            <Link to="/adminlogin">
             <Button variant="primary">Admin Login</Button>
           </Link>
@@ -36,12 +35,9 @@ const HomePage = () => {
               variant="top"
               src="https://res.cloudinary.com/dpfnyv0ut/image/upload/v1709258515/img2_lnqtvn.webp"
             />
-            <Card.Title>Upload your details</Card.Title>
-            <Card.Text>
-            All doctors treat, but a good doctor lets nature heal.
-            </Card.Text>
+            <Card.Title className="card-body">Upload your details</Card.Title>
             <Link to="/userlogin">
-            <Button variant="primary">Upload file</Button>
+            <Button variant="primary" className="card-body">Upload file</Button>
           </Link>
           </Card.Body>
         </Card>
@@ -69,12 +65,12 @@ const HomePage = () => {
             </ul>
           </div>
           <div className="office">
-            <h3>Office</h3>
+            <h3>Address</h3>
             <p>
-              Plot No. 20, Vijaya Towers, Survey No: 79, 80, Nallagandla
-              Serilingampally, Ranga Reddy Telangana 500019
+              Plot No. 22, Vinay Towers, Survey No: 70, 89, Nallagandla
+              Serilingampally, Ranga Reddy Telangana 500020
             </p>
-            <p>connect@avika.ai</p>
+            <p>connection@avika.ai</p>
           </div>
         </div>
         <div className="copyright">
