@@ -1,4 +1,4 @@
-#adminlogin {
+/* #adminlogin {
   width: 350px;
   height: 100vh;
   margin: 0 auto;
@@ -125,4 +125,84 @@ label {
   background-color: white;
   color: black;
   border: solid 1px #333;
+}
+ */
+
+
+
+
+
+
+
+#adminlogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* background-color: #f0f2f5; */
+}
+
+.adminform {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#login {
+  color: #1976d2;
+}
+
+#admin-icon {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.login-form .form-group {
+  margin-bottom: 20px;
+}
+
+.shows-password {
+  cursor: pointer;
+  color: #1976d2;
+  display: inline-block;
+  margin-top: -33px;
+}
+
+#loginbtn {
+  margin-top: 20px;
+}
+
+#credentials {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#credentials #note {
+  font-weight: bold;
+}
+
+#guestButton {
+  margin-top: 10px;
+}
+
+@media (max-width: 520px) {
+  #adminlogin {
+    padding: 0px;
+  }
+  .shows-password {
+    cursor: pointer;
+    color: #1976d2;
+    display: inline-block;
+    margin-top: -57px;
+    margin-right: 10px;
+  }
 }
