@@ -121,7 +121,6 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const loading = useSelector((state) => state.adminlogin.loading);
   const isAdminLogin = useSelector((state) => state.adminlogin.isAdminLogin);
 
@@ -169,14 +168,13 @@ const AdminLogin = () => {
                 onChange={(e) => setMobile(e.target.value)}
                 fullWidth
                 required
-                inputProps={{ maxLength: 10 }}
                 placeholder="Enter your mobile number"
               />
             </div>
             <div className="form-group">
               <TextField
                 label="Password"
-                type={showPassword ? "text" : "password"}
+                type="password"
                 name="password"
                 id="password"
                 variant="outlined"
@@ -186,22 +184,15 @@ const AdminLogin = () => {
                 required
                 placeholder="Enter your password"
               />
-              <span
-                onClick={() => setShowPassword(!showPassword)}
-                className="shows-password"
-              >
-                {showPassword ? "Hide" : "Show"}
-              </span>
             </div>
             <Button
-              className="btn"
               id="loginbtn"
               type="submit"
               variant="contained"
               color="primary"
               fullWidth
             >
-              {loading ? "Logging in..." : "LOGIN"}
+              {loading ? "Logging in..." : "Login"}
             </Button>
             <p id="credentials">
               <span id="note">Note:</span> Mobile: 9964517148 and Password:
@@ -213,7 +204,8 @@ const AdminLogin = () => {
               type="button"
               id="guestButton"
               onClick={handleGuestLogin}
-              variant="outlined"
+              variant="contained"
+              color="primary"
               fullWidth
             >
               Continue as Guest

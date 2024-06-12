@@ -139,7 +139,7 @@ label {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background-color: #f0f2f5; */
+  background-color: #f0f2f5;
 }
 
 .adminform {
@@ -170,13 +170,6 @@ label {
   margin-bottom: 20px;
 }
 
-.shows-password {
-  cursor: pointer;
-  color: #1976d2;
-  display: inline-block;
-  margin-top: -33px;
-}
-
 #loginbtn {
   margin-top: 20px;
 }
@@ -193,16 +186,13 @@ label {
 #guestButton {
   margin-top: 10px;
 }
+.MuiInputLabel-asterisk {
+  color: red;
+}
 
 @media (max-width: 520px) {
   #adminlogin {
-    padding: 0px;
+    padding: 10px;
   }
-  .shows-password {
-    cursor: pointer;
-    color: #1976d2;
-    display: inline-block;
-    margin-top: -57px;
-    margin-right: 10px;
-  }
+  
 }
