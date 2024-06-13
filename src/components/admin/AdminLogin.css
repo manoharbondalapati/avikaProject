@@ -1,3 +1,4 @@
+
 #adminlogin {
   display: flex;
   justify-content: center;
@@ -12,7 +13,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 450px;
+  max-width: 400px;
 }
 
 .heading {
@@ -47,16 +48,14 @@
   font-weight: bold;
 }
 
-#guestButton {
-  margin-top: 10px;
-}
 .MuiInputLabel-asterisk {
   color: red;
 }
-
+#guestButton {
+  margin-top: 10px;
+}
 @media (max-width: 520px) {
-  #adminlogin {
+  #userlogin {
     padding: 10px;
   }
-  
-}
+} 
