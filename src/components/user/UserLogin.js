@@ -4,6 +4,9 @@ import { loginUser } from "../../myredux/reducers/UserSlice";
 import { FaUser } from "react-icons/fa";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import "./UserLogin.css";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +15,7 @@ const UserLogin = () => {
   const navigate = useNavigate();
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const loading = useSelector((state) => state.userlogin.loading);
   const isUserLogin = useSelector((state) => state.userlogin.isUserLogin);
 
@@ -34,6 +38,10 @@ const UserLogin = () => {
       navigate("/userpage");
     }
   }, [isUserLogin, navigate]);
+
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = (event) => event.preventDefault();
 
   return (
     <div id="userlogin">
@@ -65,7 +73,7 @@ const UserLogin = () => {
             <div className="form-group">
               <TextField
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
                 variant="outlined"
@@ -74,6 +82,20 @@ const UserLogin = () => {
                 fullWidth
                 required
                 placeholder="Enter your password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility />: <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </div>
             <Button
